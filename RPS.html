@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f0f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .score-board {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .choices {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .choice {
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #6200ea;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .choice:hover {
+      background-color: #3700b3;
+    }
+
+    .result {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock ✊ Paper 🖐️ Scissors ✌️</h1>
+
+  <div class="score-board">
+    <div class="score" id="user-score">You: 0</div>
+    <div class="score" id="comp-score">Computer: 0</div>
+  </div>
+
+  <div class="choices">
+    <button class="choice" onclick="playGame('rock')">✊ Rock</button>
+    <button class="choice" onclick="playGame('paper')">🖐️ Paper</button>
+    <button class="choice" onclick="playGame('scissors')">✌️ Scissors</button>
+  </div>
+
+  <div class="result" id="result">Make your move!</div>
+
+  <script>
+    let userScore = 0;
+    let compScore = 0;
+
+    function playGame(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const compChoice = choices[Math.floor(Math.random() * 3)];
+      const result = getResult(userChoice, compChoice);
+
+      if (result === 'win') {
+        userScore++;
+        document.getElementById('result').textContent = `You chose ${userChoice} 🆚 ${compChoice}. You win! 🎉`;
+      } else if (result === 'lose') {
+        compScore++;
+        document.getElementById('result').textContent = `You chose ${userChoice} 🆚 ${compChoice}. You lose! 😢`;
+      } else {
+        document.getElementById('result').textContent = `You both chose ${userChoice}. It's a draw! 🤝`;
+      }
+
+      document.getElementById('user-score').textContent = `You: ${userScore}`;
+      document.getElementById('comp-score').textContent = `Computer: ${compScore}`;
+    }
+
+    function getResult(user, comp) {
+      if (user === comp) return 'draw';
+      if (
+        (user === 'rock' && comp === 'scissors') ||
+        (user === 'paper' && comp === 'rock') ||
+        (user === 'scissors' && comp === 'paper')
+      ) {
+        return 'win';
+      }
+      return 'lose';
+    }
+  </script>
+</body>
+</html>
